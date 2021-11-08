@@ -15,3 +15,21 @@ export const getBlogPost = (id) => {
         }, 500)
     })
 }
+const getNextId = () => {
+    const maxId = Math.max(...posts.map(post => post.id));
+    return maxId + 1;
+}
+
+export const createNewPost = (postObject) => {
+    const newPost = {
+        ...postObject,
+        updated_at: Date.now(),
+        id: getNextId()
+    }
+
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(newPost);
+        }, 500)
+    })
+}

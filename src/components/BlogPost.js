@@ -17,7 +17,7 @@ export const BlogPost = (props) => {
       getBlogPost(id)
       .then(post => setPost(post))
       .catch(error => console.log(error))
-      .finally(setLoading(false))  
+      .finally(() => setLoading(false))  
     },[id])
 
  
