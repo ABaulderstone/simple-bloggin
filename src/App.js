@@ -5,6 +5,7 @@ import { GlobalStyle } from './styled-components/globalStyles';
 import { BlogPost } from './components/BlogPost';
 import BlogPosts from './components/BlogPosts';
 import { NewBlogPost } from './components/NewBlogPost';
+import { NavBar } from './components/NavBar';
 
 
 const App = () => {
@@ -33,12 +34,12 @@ const App = () => {
     <>
     <GlobalStyle />
     <BrowserRouter>
+      <NavBar/>
       <Routes>
           <Route path="/" element={<Navigate to="/posts" />} />
           <Route path="/posts" element={<BlogPosts loading={loading} posts={blogPosts} />} />
           <Route path="/posts/new" element={<NewBlogPost addNewBlogPost={addNewBlogPost} />} />
-          <Route path="/posts/:id" element={<BlogPost />} />
-          
+          <Route path="/posts/:id" element={<BlogPost blogPosts={blogPosts} />} />
       </Routes>
     
     </BrowserRouter>

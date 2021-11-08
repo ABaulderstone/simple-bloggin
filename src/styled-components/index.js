@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import {Link} from 'react-router-dom'
 
 export const CardDeck = styled.div`
     display: flex;
@@ -76,4 +77,18 @@ export const Select = styled.select`
 export const Option = styled.option`
     font-size: 1.2em;
     
+`
+export const Nav = styled.nav`
+    display: flex;
+`
+export const StyledLink = styled(Link)`
+    font-size: 1.2em;
+    text-decoration: none;
+    margin: 1em;
+    padding: .2em .5em;
+    color: blue;
+    &:hover{
+        color: orange;
+    }
+
 `

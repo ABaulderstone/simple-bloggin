@@ -6,6 +6,7 @@ import { capitialize } from '../utils/stringUtils';
 
 
 export const BlogPost = (props) => {
+    const {blogPosts} = props;
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -14,11 +15,11 @@ export const BlogPost = (props) => {
 
     useEffect(() => {
      
-      getBlogPost(id)
+      getBlogPost(blogPosts, id)
       .then(post => setPost(post))
       .catch(error => console.log(error))
       .finally(() => setLoading(false))  
-    },[id])
+    },[id, blogPosts])
 
  
 
@@ -34,7 +35,7 @@ export const BlogPost = (props) => {
                 <>
                 <h1>{post.title}</h1>
                 <Moment fromNow>{post.updated_at}</Moment>
-                <h3>{post.category}</h3>
+                <h3>{capitalize(post.category)}</h3>
                 <p>{post.content}</p>
                 </>
          

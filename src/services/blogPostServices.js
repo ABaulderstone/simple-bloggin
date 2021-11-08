@@ -8,10 +8,10 @@ export const getBlogPosts = () => {
     })
 }
 
-export const getBlogPost = (id) => {
+export const getBlogPost = (blogPosts, id) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve(posts.find(post => post.id === parseInt(id)))
+            resolve(blogPosts.find(post => post.id === parseInt(id)))
         }, 500)
     })
 }
