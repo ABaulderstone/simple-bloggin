@@ -35,7 +35,7 @@ export const BlogPost = (props) => {
                 <>
                 <h1>{post.title}</h1>
                 <Moment fromNow>{post.updated_at}</Moment>
-                <h3>{capitalize(post.category)}</h3>
+                <h3>{capitialize(post.category)}</h3>
                 <p>{post.content}</p>
                 </>
          
