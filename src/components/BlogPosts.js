@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {} from "react";
 import { useGlobalState } from "../config/store";
-import { getBlogPosts } from "../services/blogPostServices";
 import {CardDeck } from "../styled-components";
 import { BlogPreview } from "./BlogPreview";
 
 const BlogPosts = (props) => {
-    const [loading, setLoading] = useState(false)
-    const {store, dispatch} = useGlobalState();
+    const loading = false
+    const {store} = useGlobalState();
     const {blogPosts} = store; 
     
 

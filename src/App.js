@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useReducer} from 'react'
+import React, {useEffect, useReducer} from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { GlobalStyle } from './styled-components/globalStyles';
 import { BlogPost } from './components/BlogPost';
@@ -9,6 +9,8 @@ import stateReducer from './config/stateReducer';
 import intialState from './config/initialState';
 import { StateContext } from './config/store';
 import { getBlogPosts } from './services/blogPostServices';
+import { getCategories } from './services/categoriesServices';
+import { LogIn } from './components/LogIn';
 
 
 
@@ -18,9 +20,13 @@ const App = () => {
   const [store, dispatch] = useReducer(stateReducer, intialState)
   
   useEffect(() => {
-    getBlogPosts()
-     .then(posts => dispatch({type: "setBlogPosts", data: posts}) )
-     .catch(error => console.log(error))
+    getCategories()
+      .then(categories => dispatch({type: "setCategories", data: categories}))
+      .catch(error => console.log(error))
+      
+      getBlogPosts()
+      .then(posts => dispatch({type: "setBlogPosts", data: posts}) )
+      .catch(error => console.log(error))
     }, [])
 
   return (
@@ -34,6 +40,7 @@ const App = () => {
           <Route path="/posts" element={<BlogPosts  />} />
           <Route path="/posts/new" element={<NewBlogPost  />} />
           <Route path="/posts/:id" element={<BlogPost/>} />
+          <Route path="/auth/login" element={<LogIn />} />
       </Routes>
     
     </BrowserRouter>

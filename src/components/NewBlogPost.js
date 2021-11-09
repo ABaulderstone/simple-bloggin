@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router'
 import { useGlobalState } from '../config/store';
 import { createNewPost } from '../services/blogPostServices';
 import {Block, Label, Input, TextArea, InputButton, Select, Option} from '../styled-components/index'
-import categories from '../data/categories'
 import { capitialize } from '../utils/stringUtils';
 /**
 * @author
@@ -14,8 +13,8 @@ export const NewBlogPost = (props) => {
    
     const navigate = useNavigate();
     const {store, dispatch} = useGlobalState();
-    const {blogPosts} = store;
-    const [loading, setLoading] = useState(true);
+    const {blogPosts, categories} = store;
+    const [loading, setLoading] = useState(false);
    
     const initialState = {
         title: "",
@@ -26,6 +25,7 @@ export const NewBlogPost = (props) => {
     const [formState, setFormState] = useState(initialState);
 
     function addNewBlogPost(postObject) {
+        setLoading(true)
         createNewPost(postObject)
             .then(newPost =>{
                 console.log(newPost);
@@ -33,6 +33,7 @@ export const NewBlogPost = (props) => {
                 type: "setBlogPosts",
                 data: [...blogPosts, newPost]
             })
+            setLoading(false)
             navigate("/")
         })
         .catch(error => console.log(error))
@@ -79,7 +80,7 @@ export const NewBlogPost = (props) => {
                 <TextArea from="newPostForm" type="text" name="content" placeholder="Enter Text" value={formState.content} onChange={handleChange}></TextArea>
             </Block>
             <Block>
-                <InputButton type="submit" value="Add Post" />  
+                <InputButton disabled={loading} type="submit" value="Add Post" />  
             </Block>
             
         </form>

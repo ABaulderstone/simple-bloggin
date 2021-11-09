@@ -1,4 +1,5 @@
 import React from 'react'
+import { useGlobalState } from '../config/store'
 import { Nav, StyledLink } from '../styled-components'
 
 /** 
@@ -7,8 +8,21 @@ import { Nav, StyledLink } from '../styled-components'
 **/
 
 export const NavBar = (props) => {
+    const {store, dispatch} = useGlobalState()
+    const {loggedInUser} = store
+
+    function handleLogOut() {
+        dispatch({type:"removeLoggedInUser"})
+    }
+
   return(
     <Nav>
+        <span>Hello {loggedInUser || "guest"}</span>
+        {loggedInUser ? 
+        (<StyledLink onClick={handleLogOut} to="/">Log Out</StyledLink>)
+        : 
+        (<StyledLink to="auth/login">Log In</StyledLink>)
+        }
         <StyledLink to="/">Home</StyledLink>
         <StyledLink to="/posts/new">Add a post</StyledLink>
     </Nav>
