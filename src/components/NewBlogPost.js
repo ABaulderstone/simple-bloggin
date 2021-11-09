@@ -2,8 +2,9 @@ import React, {useState} from 'react'
 import { useNavigate } from 'react-router'
 import { useGlobalState } from '../config/store';
 import { createNewPost } from '../services/blogPostServices';
-import {Block, Label, Input, TextArea, InputButton} from '../styled-components/index'
-
+import {Block, Label, Input, TextArea, InputButton, Select, Option} from '../styled-components/index'
+import categories from '../data/categories'
+import { capitialize } from '../utils/stringUtils';
 /**
 * @author
 * @function NewBlogPost
@@ -68,7 +69,10 @@ export const NewBlogPost = (props) => {
             </Block>
             <Block>
                 <Label>Category</Label>
-                <Input type="text" name="category" placeholder="Enter Category.." value={formState.category} onChange={handleChange} />
+                <Select name="category" defaultValue="" onChange={handleChange}>
+                    <Option disabled hidden value="">Select Category:</Option>
+                    {categories.map(category => (<Option key={category.id} value={category.name}>{capitialize(category.name)}</Option>))}
+                </Select>
             </Block>
             <Block>
                 <Label>Content</Label>

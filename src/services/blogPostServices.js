@@ -23,6 +23,7 @@ const getNextId = () => {
 export const createNewPost = (postObject) => {
     const newPost = {
         ...postObject,
+        category: postObject.category || "misc",
         updated_at: Date.now(),
         id: getNextId()
     }
