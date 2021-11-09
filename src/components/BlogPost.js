@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import Moment from 'react-moment';
 import { useParams } from 'react-router';
+import { useGlobalState } from '../config/store';
 import { getBlogPost } from '../services/blogPostServices';
 import { capitialize } from '../utils/stringUtils';
 
 
 export const BlogPost = (props) => {
-    const {blogPosts} = props;
+    const {store} = useGlobalState()
+    const {blogPosts} = store;
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
-
     const {id} = useParams()
-    console.log(useParams());
+  
 
     useEffect(() => {
      

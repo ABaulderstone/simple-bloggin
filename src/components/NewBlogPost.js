@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router'
+import { useGlobalState } from '../config/store';
+import { createNewPost } from '../services/blogPostServices';
 import {Block, Label, Input, TextArea, InputButton} from '../styled-components/index'
 
 /**
@@ -10,16 +12,34 @@ import {Block, Label, Input, TextArea, InputButton} from '../styled-components/i
 export const NewBlogPost = (props) => {
    
     const navigate = useNavigate();
+    const {store, dispatch} = useGlobalState();
+    const {blogPosts} = store;
+    const [loading, setLoading] = useState(true);
    
     const initialState = {
         title: "",
         category: "",
         content: ""
     }
-    const {addNewBlogPost} = props
+    
     const [formState, setFormState] = useState(initialState);
 
+    function addNewBlogPost(postObject) {
+        createNewPost(postObject)
+            .then(newPost =>{
+                console.log(newPost);
+                dispatch({
+                type: "setBlogPosts",
+                data: [...blogPosts, newPost]
+            })
+            navigate("/")
+        })
+        .catch(error => console.log(error))
+        
+    }
 
+    
+    
     function handleChange(event) {
         setFormState({
             ...formState,
@@ -34,7 +54,6 @@ export const NewBlogPost = (props) => {
     function handleSubmit(event) {
         event.preventDefault();
         addNewBlogPost(formState);
-        navigate("/");
     }
   
   

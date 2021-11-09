@@ -90,5 +90,4 @@ export const StyledLink = styled(Link)`
     &:hover{
         color: orange;
     }
-
 `
