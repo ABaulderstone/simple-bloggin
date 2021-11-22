@@ -1,7 +1,8 @@
 const intialState = {
     blogPosts: [],
     categories: [],
-    loggedInUser: null
+    loggedInUser: null,
+    jwt: null
 }
 
 export default intialState;

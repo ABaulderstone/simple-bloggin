@@ -1,5 +1,10 @@
-export const logInUser = (logInDetails) => {
-    return new Promise((resolve, reject) => {
-        resolve(logInDetails.email)
-    })
+import blogApi from "../config/api"
+
+export const logInUser =  async (logInDetails) => {
+    try {
+       const response = await blogApi.post('/auth/login', logInDetails);
+       return response.data;
+    } catch(error) {
+        throw error
+    }
 }

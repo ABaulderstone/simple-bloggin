@@ -4,6 +4,7 @@ import { useGlobalState } from '../config/store';
 import { createNewPost } from '../services/blogPostServices';
 import {Block, Label, Input, TextArea, InputButton, Select, Option} from '../styled-components/index'
 import { capitialize } from '../utils/stringUtils';
+import { parseError } from '../config/api';
 /**
 * @author
 * @function NewBlogPost
@@ -15,10 +16,11 @@ export const NewBlogPost = (props) => {
     const {store, dispatch} = useGlobalState();
     const {blogPosts, categories} = store;
     const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
    
     const initialState = {
         title: "",
-        category: "",
+        category_id: "",
         content: ""
     }
     
@@ -36,7 +38,10 @@ export const NewBlogPost = (props) => {
             setLoading(false)
             navigate("/")
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+           const message = parseError(error);
+           setErrorMessage(message);
+        })
         
     }
 
@@ -64,15 +69,16 @@ export const NewBlogPost = (props) => {
     <div>
         <h1>Add a blog post</h1>
         <form id="newPostForm" onSubmit={handleSubmit}>
+            {errorMessage && <p style={{color: 'red'}}>{errorMessage}</p>}
             <Block>
                 <Label>Title</Label>
                 <Input type="text" name="title" placeholder="Enter Title.." value={formState.title} onChange={handleChange} />
             </Block>
             <Block>
                 <Label>Category</Label>
-                <Select name="category" defaultValue="" onChange={handleChange}>
+                <Select name="category_id" defaultValue="" onChange={handleChange}>
                     <Option disabled hidden value="">Select Category:</Option>
-                    {categories.map(category => (<Option key={category.id} value={category.name}>{capitialize(category.name)}</Option>))}
+                    {categories.map(category => (<Option key={category.id} value={category.id}>{capitialize(category.name)}</Option>))}
                 </Select>
             </Block>
             <Block>

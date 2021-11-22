@@ -25,6 +25,20 @@ const stateReducer = (state, action) => {
                 loggedInUser: null
             }
         }
+
+        case "setJWT" : {
+            return {
+                ...state,
+                jwt: action.data
+            }
+        }
+
+        case "removeJWT" : {
+            return {
+                ...state,
+                jwt: null
+            }
+        }
         default:
             return state;
     }

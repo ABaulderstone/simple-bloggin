@@ -27,22 +27,16 @@ export const getBlogPost = async (id) => {
    }
 }
 
-const getNextId = () => {
-    const maxId = Math.max(...posts.map(post => post.id));
-    return maxId + 1;
-}
 
-export const createNewPost = (postObject) => {
-    const newPost = {
-        ...postObject,
-        category: postObject.category || "misc",
-        updated_at: Date.now(),
-        id: getNextId()
+
+export const createNewPost =  async (postObject) => {
+    try 
+    {
+     const response = await blogApi.post('/posts', postObject);
+     return response.data;
+    } 
+    catch (err) 
+    {
+         throw err
     }
-
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(newPost);
-        }, 500)
-    })
 }
