@@ -11,13 +11,15 @@ import { StateContext } from './config/store';
 import { getBlogPosts } from './services/blogPostServices';
 import { getCategories } from './services/categoriesServices';
 import { LogIn } from './components/LogIn';
+import { retrieveUserFromJWT } from './services/userServices';
 
 
 
 
 const App = () => {
   
-  const [store, dispatch] = useReducer(stateReducer, intialState)
+  const [store, dispatch] = useReducer(stateReducer, intialState);
+  const token = sessionStorage.getItem('jwt');
   
   useEffect(() => {
     getCategories()
@@ -28,6 +30,11 @@ const App = () => {
       .then(posts => dispatch({type: "setBlogPosts", data: posts}) )
       .catch(error => console.log(error))
     }, [])
+
+    useEffect(() => {
+        retrieveUserFromJWT()
+          .then(response => dispatch({type:"setLoggedInUser", data: response.username}))
+    }, [token])
 
   return (
     <>

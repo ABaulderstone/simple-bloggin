@@ -1,7 +1,17 @@
 import axios from 'axios'
 
+
+
 const blogApi = axios.create({
     baseURL: process.env.REACT_APP_BLOG_API
+});
+
+blogApi.interceptors.request.use(req => {
+    const jwt = sessionStorage.getItem('jwt');
+    if (jwt) {
+        req.headers["Authorization"] = `Bearer ${jwt}`
+    }
+    return req; 
 })
 
 export default blogApi;

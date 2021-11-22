@@ -1,4 +1,3 @@
-import posts from '../data/posts';
 import blogApi from '../config/api';
 
 export const getBlogPosts = async () => {

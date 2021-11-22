@@ -17,7 +17,7 @@ const BlogPosts = (props) => {
          (<p>Loading</p>) 
          : 
          (<CardDeck>
-             {blogPosts.sort((a , b)=> b.updated_at - a.updated_at).map(post => (<BlogPreview key={post.id} post={post} />))}
+             {blogPosts.sort((a , b)=> new Date(b.updated_at) - new Date(a.updated_at)).map(post => (<BlogPreview key={post.id} post={post} />))}
           </CardDeck>)
          
         }

@@ -13,6 +13,7 @@ export const NavBar = (props) => {
 
     function handleLogOut() {
         dispatch({type:"removeLoggedInUser"})
+        dispatch({type:"removeJWT"})
     }
 
   return(

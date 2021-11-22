@@ -27,6 +27,7 @@ const stateReducer = (state, action) => {
         }
 
         case "setJWT" : {
+            sessionStorage.setItem('jwt', action.data);
             return {
                 ...state,
                 jwt: action.data
@@ -34,6 +35,7 @@ const stateReducer = (state, action) => {
         }
 
         case "removeJWT" : {
+            sessionStorage.removeItem('jwt');
             return {
                 ...state,
                 jwt: null
