@@ -1,20 +1,32 @@
 import posts from '../data/posts';
+import blogApi from '../config/api';
 
-export const getBlogPosts = () => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(posts)
-        }, 500)
-    })
+export const getBlogPosts = async () => {
+   try 
+   {
+    const response = await blogApi.get('/posts');
+    return response.data;
+   } 
+   catch (err) 
+   {
+       console.log(err)
+        throw err
+   }
 }
 
-export const getBlogPost = (blogPosts, id) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(blogPosts.find(post => post.id === parseInt(id)))
-        }, 500)
-    })
+export const getBlogPost = async (id) => {
+    try 
+   {
+    const response = await blogApi.get('/posts/' + id);
+    return response.data;
+   } 
+   catch (err) 
+   {
+       console.log(err)
+        throw err
+   }
 }
+
 const getNextId = () => {
     const maxId = Math.max(...posts.map(post => post.id));
     return maxId + 1;

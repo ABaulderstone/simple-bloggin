@@ -16,11 +16,11 @@ export const BlogPost = (props) => {
 
     useEffect(() => {
      
-      getBlogPost(blogPosts, id)
+      getBlogPost(id)
       .then(post => setPost(post))
       .catch(error => console.log(error))
       .finally(() => setLoading(false))  
-    },[id, blogPosts])
+    },[id])
 
  
 
@@ -35,8 +35,9 @@ export const BlogPost = (props) => {
          
                 <>
                 <h1>{post.title}</h1>
+                <h2>Author: {post.author.username}</h2>
                 <Moment fromNow>{post.updated_at}</Moment>
-                <h3>{capitialize(post.category)}</h3>
+                <h3>{capitialize(post.category.name)}</h3>
                 <p>{post.content}</p>
                 </>
          
